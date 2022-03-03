@@ -139,8 +139,13 @@ IF "%respNPM%" == "N" goto preguntaGIT
 
 :iniciarNPM
 ECHO .......Creando proyecto en default npm init
-CALL npm init -y
-goto preguntaGIT
+ECHO https://raw.githubusercontent.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/projectNPM/package.json -OutFile package.json"
+ECHO ..... Instando paquetes de NMP Linter y prettier
+ECHO ....... .......
+CALL npm i -D eslint eslint-config-google eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
+CALL npm i -D prettier prettier-eslint
+goto descargarLinters
 
 :preguntaGIT
 ECHO =====================================
@@ -151,9 +156,21 @@ IF "%respGIT%" == "s" goto iniciarGIT
 IF "%respGIT%" == "n" goto fin
 IF "%respGIT%" == "N" goto fin
 
+:descargarLinters
+ECHO ....Descargando .eslintignore desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.eslintignore -OutFile .eslintignore"
+ECHO ....Descargando .eslintrc desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.eslintrc -OutFile .eslintrc"
+ECHO ....Descargando .prettierignore desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.prettierignore -OutFile .prettierignore"
+goto preguntaGIT
+
 :iniciarGIT
 CALL git init
-ECHO ....Descargando .gitignore
+ECHO ....Descargando .gitignore desde:
 ECHO https://www.toptal.com/developers/gitignore/api/node
 powershell -Command "iwr -uri https://www.toptal.com/developers/gitignore/api/node -OutFile .gitignore"
 goto fin
