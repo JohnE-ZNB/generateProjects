@@ -1,0 +1,26 @@
+{
+  "extends": ["eslint:recommended", "google", "plugin:prettier/prettier"],
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "error",
+    "max-len": ["error", { "code": 120 }],
+    "eqeqeq": ["error", "always"],
+    "no-eq-null": "error"
+  },
+  "env": {
+    "mocha": true,
+    "amd": true,
+    "jasmine": true,
+    "mongo": true,
+    "node": true,
+    "es2021": true,
+    "es2020": true
+  }
+}
