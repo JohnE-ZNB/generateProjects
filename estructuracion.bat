@@ -9,7 +9,7 @@ ECHO ProyectoEjemplo - DevNodeJS - APIStore .... etc
 set /p nombreProyecto=Seleccione una:
 mkdir "%nombreProyecto%"
 cd "%nombreProyecto%"
-goto inicio 
+goto inicio
 
 :inicio
 ECHO ****************************
@@ -26,26 +26,30 @@ IF "%respuesta%" == "2" goto dos
 
 :uno
 ECHO .....Creando carpetas...
-mkdir Backend & 
-mkdir Backend\src & 
-ECHO .....Creando carpeta src ...
-mkdir Backend\src\config & 
-mkdir Backend\src\lib & 
-mkdir Backend\src\routes & 
-mkdir Backend\src\services & 
+mkdir Backend &
+mkdir Backend\src &
+ECHO .....Creando carpetas dentro src ...
+mkdir Backend\src\config &
+mkdir Backend\src\routes &
+mkdir Backend\src\services &
 mkdir Backend\src\utils &
+mkdir Backend\src\utils\lib &
 mkdir Backend\src\utils\middlewares &
-mkdir Backend\src\utils\mocks &
-ECHO .....Creando carpeta test ...
+ECHO .....Creando carpeta test dentro de src ...
 mkdir Backend\src\test &
 mkdir Backend\src\test\routes &
 mkdir Backend\src\test\services &
 mkdir Backend\src\test\utils &
+mkdir Backend\src\test\utils\mocks &
+mkdir Backend\src\test\utils\mocks\request &
+mkdir Backend\src\test\utils\mocks\response &
 ECHO Termino la creacion de carpertas!!!
 ECHO =====================================
 ECHO .....Creando archivos de inicio...
-ECHO .....archivo de config.js
 cd Backend\src
+ECHO let generateIndex = "Hello World">"index.js"
+ECHO console.log(generateIndex);>>"index.js"
+ECHO .....archivo ==== src/index.js
 (
 ECHO //CONFIG
 ECHO NODE_ENV=DEV
@@ -57,7 +61,7 @@ ECHO DB_PASS=
 ECHO DB_HOST=
 ECHO DB_NAME=
 )>".env"
-ECHO .....archivo de .ENV
+ECHO .....archivo ==== src/.ENV
 cd config
 (
 ECHO const config = {
@@ -70,39 +74,50 @@ ECHO  dbName: process.env.DB_NAME,
 ECHO };
 ECHO module.exports = { config };
 )>"config.js"
+ECHO .....archivo ==== src/config/config.js
 cd..
-goto preguntaNPM
+cd utils
+(
+ECHO //responses's
+)>"response.build.js"
+ECHO .....archivo ==== src/utils/response.build.js
+goto preguntaGIT
 
 :dos
 ECHO .....Creando carpetas para LAMBDA...
-mkdir BackendLambda & 
-mkdir BackendLambda\src & 
+mkdir BackendLambda &
+mkdir BackendLambda\src &
 ECHO .....Creando carpeta src ...
-mkdir BackendLambda\src\lib & 
-mkdir BackendLambda\src\routes & 
-mkdir BackendLambda\src\services & 
+mkdir BackendLambda\src\config &
+mkdir BackendLambda\src\controllers &
+mkdir BackendLambda\src\services &
 mkdir BackendLambda\src\utils &
+mkdir BackendLambda\src\utils\lib &
 mkdir BackendLambda\src\utils\middlewares &
-mkdir BackendLambda\src\utils\mocks &
 ECHO .....Creando carpeta test ...
 mkdir BackendLambda\src\test &
-mkdir BackendLambda\src\test\routes &
+mkdir BackendLambda\src\test\controllers &
 mkdir BackendLambda\src\test\services &
 mkdir BackendLambda\src\test\utils &
+mkdir BackendLambda\src\test\utils\mocks &
+mkdir BackendLambda\src\test\utils\mocks\request &
+mkdir BackendLambda\src\test\utils\mocks\response &
 ECHO Termino la creacion de carpertas!!!
 ECHO =====================================
 cd BackendLambda\src
-ECHO exports.handler = function(event, context) { >"index.js"
-ECHO   console.log("Received event: ", event); >>"index.js"
-ECHO   var data = { >>"index.js"
-ECHO       "example": "Hello world"
+ECHO exports.handler = function(event, context) {>"index.js"
+ECHO   console.log("Received event: ", event);>>"index.js"
+ECHO   var data = {>>"index.js"
+ECHO       "example": "Hello world">>"index.js"
 ECHO   }; >>"index.js"
-ECHO   const response = { >>"index.js"
-ECHO     statusCode: 200, >>"index.js"
-ECHO     body: JSON.stringify(data) >>"index.js"
-ECHO   }; >>"index.js"
-ECHO }; >>"index.js"
-cd utils
+ECHO   const response = {>>"index.js"
+ECHO     statusCode: 200,>>"index.js"
+ECHO     body: JSON.stringify(data)>>"index.js"
+ECHO   };>>"index.js"
+ECHO };>>"index.js"
+ECHO .....archivo ==== src/index.js
+
+cd config
 (
 ECHO module.exports = {
 ECHO    CONFIG: {
@@ -120,11 +135,30 @@ ECHO      CODE_INTERNAL_SERVER: 500,
 ECHO    },
 ECHO };
 )>"constants.js"
+ECHO .....archivo ==== src/config/constants.js
+cd..
+cd utils
 (
-ECHO //error's
-)>"errors.js"
+ECHO //responses's
+)>"response.build.js"
 cd..
 cd..
+goto preguntaGIT
+
+:preguntaGIT
+ECHO =====================================
+set /p respGIT=¿Desea iniciar GIT para proyecto?(S/N):
+IF "%respGIT%" == "" goto preguntaNPM
+IF "%respGIT%" == "S" goto iniciarGIT
+IF "%respGIT%" == "s" goto iniciarGIT
+IF "%respGIT%" == "n" goto preguntaNPM
+IF "%respGIT%" == "N" goto preguntaNPM
+
+:iniciarGIT
+CALL git init
+ECHO ....Descargando .gitignore desde:
+ECHO https://www.toptal.com/developers/gitignore/api/node
+powershell -Command "iwr -uri https://www.toptal.com/developers/gitignore/api/node -OutFile .gitignore"
 goto preguntaNPM
 
 :preguntaNPM
@@ -133,29 +167,42 @@ set /p respNPM=¿Desea inicia proyecto NODE JS?(S/N):
 IF "%respNPM%" == "" goto Fin
 IF "%respNPM%" == "S" goto iniciarNPM
 IF "%respNPM%" == "s" goto iniciarNPM
-IF "%respNPM%" == "n" goto preguntaGIT
-IF "%respNPM%" == "N" goto preguntaGIT
+IF "%respNPM%" == "n" goto fin
+IF "%respNPM%" == "N" goto fin
 
 
 :iniciarNPM
 ECHO .......Creando proyecto en default npm init
-CALL npm init -y
-goto preguntaGIT
+ECHO https://raw.githubusercontent.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/projectNPM/package.json -OutFile package.json"
+goto preguntaInstall
 
-:preguntaGIT
+:preguntaInstall
 ECHO =====================================
-set /p respGIT=¿Desea iniciar GIT para proyecto?(S/N):
-IF "%respGIT%" == "" goto fin
-IF "%respGIT%" == "S" goto iniciarGIT
-IF "%respGIT%" == "s" goto iniciarGIT
-IF "%respGIT%" == "n" goto fin
-IF "%respGIT%" == "N" goto fin
+set /p respGIT=¿Desea ejecutar el comando: npm install -D ?(S/N):
+IF "%respGIT%" == "" goto descargarLinters
+IF "%respGIT%" == "S" goto installNPM
+IF "%respGIT%" == "s" goto installNPM
+IF "%respGIT%" == "n" goto descargarLinters
+IF "%respGIT%" == "N" goto descargarLinters
 
-:iniciarGIT
-CALL git init
-ECHO ....Descargando .gitignore
-ECHO https://www.toptal.com/developers/gitignore/api/node
-powershell -Command "iwr -uri https://www.toptal.com/developers/gitignore/api/node -OutFile .gitignore"
+:installNPM
+ECHO ..... Instando paquetes de NMP Linter y prettier
+ECHO ....... .......
+CALL npm i -D eslint eslint-config-google eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
+CALL npm i -D prettier prettier-eslint
+goto descargarLinters
+
+:descargarLinters
+ECHO ....Descargando .eslintignore desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.eslintignore -OutFile .eslintignore"
+ECHO ....Descargando .eslintrc desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.eslintrc -OutFile .eslintrc"
+ECHO ....Descargando .prettierignore desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.prettierignore -OutFile .prettierignore"
 goto fin
 
 :fin
