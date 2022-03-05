@@ -35,7 +35,7 @@ mkdir Backend\src\services &
 mkdir Backend\src\utils &
 mkdir Backend\src\utils\lib &
 mkdir Backend\src\utils\middlewares &
-ECHO .....Creando carpeta test dentro de src ...
+ECHO .....Creando carpeta test ...
 mkdir Backend\test &
 mkdir Backend\test\routes &
 mkdir Backend\test\services &
