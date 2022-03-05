@@ -35,14 +35,14 @@ mkdir Backend\src\services &
 mkdir Backend\src\utils &
 mkdir Backend\src\utils\lib &
 mkdir Backend\src\utils\middlewares &
-ECHO .....Creando carpeta test dentro de src ...
-mkdir Backend\src\test &
-mkdir Backend\src\test\routes &
-mkdir Backend\src\test\services &
-mkdir Backend\src\test\utils &
-mkdir Backend\src\test\utils\mocks &
-mkdir Backend\src\test\utils\mocks\request &
-mkdir Backend\src\test\utils\mocks\response &
+ECHO .....Creando carpeta test ...
+mkdir Backend\test &
+mkdir Backend\test\routes &
+mkdir Backend\test\services &
+mkdir Backend\test\utils &
+mkdir Backend\test\utils\mocks &
+mkdir Backend\test\utils\mocks\request &
+mkdir Backend\test\utils\mocks\response &
 ECHO Termino la creacion de carpertas!!!
 ECHO =====================================
 ECHO .....Creando archivos de inicio...
@@ -97,13 +97,13 @@ mkdir BackendLambda\src\utils &
 mkdir BackendLambda\src\utils\lib &
 mkdir BackendLambda\src\utils\middlewares &
 ECHO .....Creando carpeta test ...
-mkdir BackendLambda\src\test &
-mkdir BackendLambda\src\test\controllers &
-mkdir BackendLambda\src\test\services &
-mkdir BackendLambda\src\test\utils &
-mkdir BackendLambda\src\test\utils\mocks &
-mkdir BackendLambda\src\test\utils\mocks\request &
-mkdir BackendLambda\src\test\utils\mocks\response &
+mkdir BackendLambda\test &
+mkdir BackendLambda\test\controllers &
+mkdir BackendLambda\test\services &
+mkdir BackendLambda\test\utils &
+mkdir BackendLambda\test\utils\mocks &
+mkdir BackendLambda\test\utils\mocks\request &
+mkdir BackendLambda\test\utils\mocks\response &
 ECHO Termino la creacion de carpertas!!!
 ECHO =====================================
 cd BackendLambda\src
