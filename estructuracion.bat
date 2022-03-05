@@ -158,6 +158,10 @@ IF "%respGIT%" == "N" goto preguntaNPM
 
 :iniciarGIT
 CALL git init
+ECHO Creando ramas base main - stage - develop
+CALL git checkout -b main
+CALL git checkout -b stage
+CALL git checkout -b develop
 ECHO ....Descargando .gitignore desde:
 ECHO https://www.toptal.com/developers/gitignore/api/node
 powershell -Command "iwr -uri https://www.toptal.com/developers/gitignore/api/node -OutFile .gitignore"
