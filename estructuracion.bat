@@ -81,6 +81,8 @@ cd utils
 ECHO //responses's
 )>"response.build.js"
 ECHO .....archivo ==== src/utils/response.build.js
+cd..
+cd..
 goto preguntaGIT
 
 :dos
@@ -191,6 +193,8 @@ ECHO ..... Instando paquetes de NMP Linter y prettier
 ECHO ....... .......
 CALL npm i -D eslint eslint-config-google eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
 CALL npm i -D prettier prettier-eslint
+CALL npm i -D mocha
+CALL npm i -D nyc
 goto descargarLinters
 
 :descargarLinters
