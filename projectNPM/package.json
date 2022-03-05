@@ -7,10 +7,10 @@
     "/src"
   ],
   "keywords": [],
-  "author": "",
+  "author": "John E Cortes (Zanocor Soft)",
   "license": "ISC",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc --reporter=lcov mocha test/* --exit",
     "lint": "eslint .",
     "prettier": "prettier --check \"./{test,src}/**/*.js\""
   }
