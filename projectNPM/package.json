@@ -7,11 +7,22 @@
     "/src"
   ],
   "keywords": [],
-  "author": "John E Cortes (Zanocor Soft)",
+  "author": "John E Cortes",
   "license": "ISC",
   "scripts": {
     "test": "nyc --reporter=lcov mocha test/* --exit",
     "lint": "eslint .",
-    "prettier": "prettier --check \"./{test,src}/**/*.js\""
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --check \"./{test,src}/**/*.js\"",
+    "prebuild": "rmdir /s /q dist && copy package.json src",
+    "build": "repack-zip",
+    "postbuild": "mkdir dist && move project-example.zip dist"
+  },
+  "repackZipConfig": {
+    "excludes": [
+      "test/**/*.*",
+      "coverage/**/*.*",
+      "events"
+    ]
   }
 }

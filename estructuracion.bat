@@ -196,9 +196,15 @@ IF "%respGIT%" == "N" goto descargarLinters
 ECHO ..... Instando paquetes de NMP Linter y prettier
 ECHO ....... .......
 CALL npm i -D eslint eslint-config-google eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
-CALL npm i -D prettier prettier-eslint
-CALL npm i -D mocha
+CALL npm i -D prettier prettier-eslint prettier-eslint-cli
 CALL npm i -D nyc
+ECHO ..... Instando paquetes de NMP para test
+ECHO ....... .......
+CALL npm i -D mocha chai sinon
+ECHO ..... Instando paquetes de NMP generar ZIP solo con modulos de dependencia necesaria
+ECHO ....... .......
+CALL npm i -D repack-zip
+
 goto descargarLinters
 
 :descargarLinters
@@ -211,6 +217,9 @@ powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/genera
 ECHO ....Descargando .prettierignore desde:
 ECHO https://github.com/JohnE-ZNB/generateProjects
 powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.prettierignore -OutFile .prettierignore"
+ECHO ....Descargando .editorconfig desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.editorconfig -OutFile .editorconfig"
 goto fin
 
 :fin
