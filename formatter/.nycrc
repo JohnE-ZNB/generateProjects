@@ -1,0 +1,12 @@
+{
+  "exclude": ["coverage/**", "test/**", "tools/**", "benchmark/**", "deps/**"],
+  "reporter": ["lcov", "html", "text", "cobertura"],
+  "lines": 85,
+  "branches": 85,
+  "statements": 85,
+  "function": 85,
+  "temp-directory": "coverage/tmp",
+  "omit-relative": false,
+  "resolve": "./lib",
+  "wrapper-length": 0
+}

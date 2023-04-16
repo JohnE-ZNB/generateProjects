@@ -35,14 +35,14 @@ mkdir Backend\src\services &
 mkdir Backend\src\utils &
 mkdir Backend\src\utils\lib &
 mkdir Backend\src\utils\middlewares &
-ECHO .....Creando carpeta test dentro de src ...
-mkdir Backend\src\test &
-mkdir Backend\src\test\routes &
-mkdir Backend\src\test\services &
-mkdir Backend\src\test\utils &
-mkdir Backend\src\test\utils\mocks &
-mkdir Backend\src\test\utils\mocks\request &
-mkdir Backend\src\test\utils\mocks\response &
+ECHO .....Creando carpeta test ...
+mkdir Backend\test &
+mkdir Backend\test\routes &
+mkdir Backend\test\services &
+mkdir Backend\test\utils &
+mkdir Backend\test\utils\mocks &
+mkdir Backend\test\utils\mocks\request &
+mkdir Backend\test\utils\mocks\response &
 ECHO Termino la creacion de carpertas!!!
 ECHO =====================================
 ECHO .....Creando archivos de inicio...
@@ -97,13 +97,13 @@ mkdir BackendLambda\src\utils &
 mkdir BackendLambda\src\utils\lib &
 mkdir BackendLambda\src\utils\middlewares &
 ECHO .....Creando carpeta test ...
-mkdir BackendLambda\src\test &
-mkdir BackendLambda\src\test\controllers &
-mkdir BackendLambda\src\test\services &
-mkdir BackendLambda\src\test\utils &
-mkdir BackendLambda\src\test\utils\mocks &
-mkdir BackendLambda\src\test\utils\mocks\request &
-mkdir BackendLambda\src\test\utils\mocks\response &
+mkdir BackendLambda\test &
+mkdir BackendLambda\test\controllers &
+mkdir BackendLambda\test\services &
+mkdir BackendLambda\test\utils &
+mkdir BackendLambda\test\utils\mocks &
+mkdir BackendLambda\test\utils\mocks\request &
+mkdir BackendLambda\test\utils\mocks\response &
 ECHO Termino la creacion de carpertas!!!
 ECHO =====================================
 cd BackendLambda\src
@@ -158,6 +158,10 @@ IF "%respGIT%" == "N" goto preguntaNPM
 
 :iniciarGIT
 CALL git init
+ECHO Creando ramas base main - stage - develop
+CALL git checkout -b main
+CALL git checkout -b stage
+CALL git checkout -b develop
 ECHO ....Descargando .gitignore desde:
 ECHO https://www.toptal.com/developers/gitignore/api/node
 powershell -Command "iwr -uri https://www.toptal.com/developers/gitignore/api/node -OutFile .gitignore"
@@ -192,9 +196,15 @@ IF "%respGIT%" == "N" goto descargarLinters
 ECHO ..... Instando paquetes de NMP Linter y prettier
 ECHO ....... .......
 CALL npm i -D eslint eslint-config-google eslint-config-prettier eslint-plugin-import eslint-plugin-prettier
-CALL npm i -D prettier prettier-eslint
-CALL npm i -D mocha
+CALL npm i -D prettier prettier-eslint prettier-eslint-cli
 CALL npm i -D nyc
+ECHO ..... Instando paquetes de NMP para test
+ECHO ....... .......
+CALL npm i -D mocha chai sinon
+ECHO ..... Instando paquetes de NMP generar ZIP solo con modulos de dependencia necesaria
+ECHO ....... .......
+CALL npm i -D repack-zip
+
 goto descargarLinters
 
 :descargarLinters
@@ -207,6 +217,9 @@ powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/genera
 ECHO ....Descargando .prettierignore desde:
 ECHO https://github.com/JohnE-ZNB/generateProjects
 powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.prettierignore -OutFile .prettierignore"
+ECHO ....Descargando .editorconfig desde:
+ECHO https://github.com/JohnE-ZNB/generateProjects
+powershell -Command "iwr -uri https://raw.githubusercontent.com/JohnE-ZNB/generateProjects/develop/formatter/.editorconfig -OutFile .editorconfig"
 goto fin
 
 :fin
